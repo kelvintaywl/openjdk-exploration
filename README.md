@@ -1,2 +1,3 @@
-# .circleci
-Template repository for starting a project with CircleCI config (i.e., boilerplate)
+# OpenJDK exploration
+
+Sample repository to explore CircleCI's OpenJDK images. 
