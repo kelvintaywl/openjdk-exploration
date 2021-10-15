@@ -1,17 +1,27 @@
 version: 2.1
 
 jobs:
-  echo:
+  check_sbt:
+    parameters:
+      image:
+        type: string
+        default: 'cimg/openjdk:11.0'
+        description: Image to use for checking SBT tool
     docker:
-      - image: cimg/base:stable
+      - image: << parameters.image >>
     steps:
       - run:
-          name: Greet
-          command: echo "I love ${COLOR} builds."
-          environment:
-            COLOR: "green"
+          name: Check SBT information on << parameters.image >>
+          command: |
+            command -v sbt
+            sbt sbtVersion
 
 workflows:
   main:
     jobs:
-      - echo
+      - check_sbt:
+          matrix:
+            parameters:
+              image:
+                - 'cimg/openjdk:11.0'
+                - 'circleci/openjdk:11-jdk-buster'
